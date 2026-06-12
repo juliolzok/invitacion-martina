@@ -37,6 +37,124 @@
             justify-content: space-between;
         }
 
+        .notas-borde {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 5;
+            opacity: 0;
+            transition: opacity 0.35s ease;
+        }
+
+        .tarjeta.musica-activa .notas-borde {
+            opacity: 1;
+        }
+
+        .confeti-borde {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 5;
+            opacity: 0;
+            transition: opacity 0.35s ease;
+        }
+
+        .tarjeta.musica-pausada .confeti-borde {
+            opacity: 1;
+        }
+
+        .pieza-confeti {
+            position: absolute;
+            top: -12px;
+            width: 7px;
+            height: 14px;
+            border-radius: 2px;
+            opacity: 0;
+            animation: caer-confeti-borde 2.8s linear infinite;
+        }
+
+        .cf1 { left: 4%; background: #881B34; animation-delay: 0s; }
+        .cf2 { left: 10%; background: #B33B57; animation-delay: 0.25s; }
+        .cf3 { left: 16%; background: #E2A2B6; animation-delay: 0.5s; }
+        .cf4 { left: 22%; background: #96233B; animation-delay: 0.75s; }
+        .cf5 { left: 28%; background: #F3CCD9; animation-delay: 1s; }
+        .cf6 { left: 34%; background: #881B34; animation-delay: 1.25s; }
+        .cf7 { left: 40%; background: #B33B57; animation-delay: 1.5s; }
+        .cf8 { left: 46%; background: #E2A2B6; animation-delay: 1.75s; }
+        .cf9 { left: 52%; background: #96233B; animation-delay: 2s; }
+        .cf10 { left: 58%; background: #F3CCD9; animation-delay: 2.25s; }
+        .cf11 { left: 64%; background: #881B34; animation-delay: 0.1s; }
+        .cf12 { left: 70%; background: #B33B57; animation-delay: 0.35s; }
+        .cf13 { left: 76%; background: #E2A2B6; animation-delay: 0.6s; }
+        .cf14 { left: 82%; background: #96233B; animation-delay: 0.85s; }
+        .cf15 { left: 88%; background: #F3CCD9; animation-delay: 1.1s; }
+        .cf16 { left: 94%; background: #881B34; animation-delay: 1.35s; }
+
+        @keyframes caer-confeti-borde {
+            0% {
+                opacity: 0;
+                transform: translateY(-16px) rotate(0deg);
+            }
+            10% {
+                opacity: 1;
+            }
+            80% {
+                opacity: 0.9;
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(calc(100vh - 120px)) rotate(300deg);
+            }
+        }
+
+        .nota-borde {
+            position: absolute;
+            color: rgba(136, 27, 52, 0.55);
+            font-size: 1rem;
+            text-shadow: 0 0 6px rgba(255, 255, 255, 0.6);
+            opacity: 0;
+            animation: flotar-borde 2.8s ease-in-out infinite;
+        }
+
+        .n1 { top: 4%; left: 8%; animation-delay: 0s; }
+        .n2 { top: 2%; left: 24%; animation-delay: 0.35s; }
+        .n3 { top: 3%; left: 42%; animation-delay: 0.7s; }
+        .n4 { top: 4%; left: 60%; animation-delay: 1.05s; }
+        .n5 { top: 2%; left: 78%; animation-delay: 1.4s; }
+        .n6 { top: 10%; right: 3%; animation-delay: 1.75s; }
+        .n7 { top: 24%; right: 2%; animation-delay: 2.1s; }
+        .n8 { top: 40%; right: 3%; animation-delay: 2.45s; }
+        .n9 { top: 56%; right: 2%; animation-delay: 0.2s; }
+        .n10 { top: 72%; right: 3%; animation-delay: 0.55s; }
+        .n11 { bottom: 12%; right: 4%; animation-delay: 0.9s; }
+        .n12 { bottom: 3%; left: 76%; animation-delay: 1.25s; }
+        .n13 { bottom: 2%; left: 58%; animation-delay: 1.6s; }
+        .n14 { bottom: 3%; left: 40%; animation-delay: 1.95s; }
+        .n15 { bottom: 2%; left: 22%; animation-delay: 2.3s; }
+        .n16 { bottom: 5%; left: 6%; animation-delay: 2.65s; }
+        .n17 { top: 72%; left: 2%; animation-delay: 0.4s; }
+        .n18 { top: 56%; left: 3%; animation-delay: 0.75s; }
+        .n19 { top: 38%; left: 2%; animation-delay: 1.1s; }
+        .n20 { top: 22%; left: 3%; animation-delay: 1.45s; }
+
+        @keyframes flotar-borde {
+            0% {
+                opacity: 0;
+                transform: translateY(8px) scale(0.85) rotate(0deg);
+            }
+            25% {
+                opacity: 0.85;
+            }
+            75% {
+                opacity: 0.8;
+                transform: translateY(-7px) scale(1) rotate(6deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-12px) scale(1.05) rotate(-4deg);
+            }
+        }
+
         /* Flores en las esquinas (Estilo lineal bordó) */
         .flor-top {
             position: absolute;
@@ -93,6 +211,18 @@
             color: #881B34;
             margin: 10px 0 5px 0;
             font-weight: normal;
+            text-shadow: 0 0 14px rgba(136, 27, 52, 0.5), 0 0 30px rgba(150, 35, 59, 0.38), 0 0 48px rgba(180, 60, 90, 0.28);
+            animation: glow-nombre 2.8s ease-in-out infinite;
+        }
+
+        @keyframes glow-nombre {
+            0%,
+            100% {
+                text-shadow: 0 0 10px rgba(136, 27, 52, 0.4), 0 0 24px rgba(150, 35, 59, 0.3), 0 0 38px rgba(180, 60, 90, 0.22);
+            }
+            50% {
+                text-shadow: 0 0 18px rgba(136, 27, 52, 0.62), 0 0 40px rgba(150, 35, 59, 0.48), 0 0 70px rgba(180, 60, 90, 0.38);
+            }
         }
 
         .acompaname {
@@ -144,6 +274,25 @@
             letter-spacing: 0.5px;
         }
 
+        .telefono-whatsapp {
+            display: inline-block;
+            color: #ffffff;
+            text-decoration: none;
+            background: linear-gradient(135deg, #96233B, #6B1024);
+            border: 1px solid #54091a;
+            border-radius: 20px;
+            padding: 8px 14px;
+            font-weight: 700;
+            letter-spacing: 0.4px;
+            box-shadow: 0 4px 10px rgba(136, 27, 52, 0.24);
+            transition: transform 0.2s ease, filter 0.2s ease;
+        }
+
+        .telefono-whatsapp:hover {
+            transform: translateY(-1px);
+            filter: brightness(1.05);
+        }
+
         .dress-code {
             font-size: 0.85rem;
             font-weight: 600;
@@ -162,13 +311,13 @@
 
         /* --- CONTADOR DE TIEMPO ESTILO RECUADRO --- */
         .contador-panel {
-            background-color: rgba(24cf, 240, 235, 0.4);
-            border: 1px solid #dcd1c4;
-            border-radius: 12px;
+            background-color: #faf7f8;
+            border: 1px solid #e4d8dc;
+            border-radius: 10px;
             padding: 12px 10px;
             margin: 15px auto 25px auto;
             width: 90%;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+            box-shadow: none;
         }
 
         .contador-titulo {
@@ -187,26 +336,32 @@
         }
 
         .casilla-tiempo {
-            background: linear-gradient(to bottom, #ffffff 0%, #eaeaea 100%);
-            border: 1px solid #b5b5b5;
-            border-radius: 6px;
+            background: #ffffff;
+            border: 1px solid #d8cbd0;
+            border-radius: 4px;
             padding: 6px 4px;
             min-width: 55px;
-            box-shadow: 0 3px 5px rgba(0,0,0,0.08);
+            box-shadow: none;
         }
 
         .numero {
             font-size: 1.45rem;
             font-weight: 700;
-            color: #222;
+            color: #2f2f2f;
             display: block;
             letter-spacing: 1px;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+        }
+
+        .numero-desvanecer {
+            opacity: 0.25;
+            transform: translateY(2px);
         }
 
         .etiqueta {
             font-size: 0.6rem;
             text-transform: uppercase;
-            color: #666;
+            color: #757575;
             font-weight: 600;
             margin-top: 2px;
             display: block;
@@ -346,6 +501,12 @@
         }
 
         .btn-musica {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            overflow: hidden;
             border: 1px solid #7A2E3D;
             background: #fff;
             color: #7A2E3D;
@@ -358,11 +519,128 @@
             cursor: pointer;
             box-shadow: 0 3px 8px rgba(122, 46, 61, 0.2);
         }
+
+        .texto-btn-musica {
+            position: relative;
+            z-index: 2;
+        }
+
+        .notas-musicales {
+            position: relative;
+            width: 22px;
+            height: 16px;
+            display: inline-block;
+            z-index: 2;
+        }
+
+        .nota {
+            position: absolute;
+            bottom: -2px;
+            font-size: 0.8rem;
+            color: #7A2E3D;
+            opacity: 0;
+            transform: translateY(0) scale(0.95);
+        }
+
+        .nota-1 {
+            left: 0;
+            animation: subir-nota 1.5s ease-in-out infinite;
+        }
+
+        .nota-2 {
+            left: 8px;
+            animation: subir-nota 1.5s ease-in-out 0.35s infinite;
+        }
+
+        .nota-3 {
+            left: 14px;
+            animation: subir-nota 1.5s ease-in-out 0.7s infinite;
+        }
+
+        .btn-musica:not(.reproduciendo) .nota {
+            animation-play-state: paused;
+            opacity: 0.2;
+            transform: translateY(0) scale(0.95);
+        }
+
+        .btn-musica.reproduciendo .nota {
+            animation-play-state: running;
+        }
+
+        @keyframes subir-nota {
+            0% {
+                opacity: 0;
+                transform: translateY(8px) scale(0.8);
+            }
+            20% {
+                opacity: 1;
+            }
+            70% {
+                opacity: 0.9;
+                transform: translateY(-8px) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-14px) scale(1.05);
+            }
+        }
+
+        /* --- CONFETI --- */
+        .confetti-canvas {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 2000;
+        }
     </style>
 </head>
 <body>
 
     <div class="tarjeta">
+        <div class="confeti-borde" aria-hidden="true">
+            <span class="pieza-confeti cf1"></span>
+            <span class="pieza-confeti cf2"></span>
+            <span class="pieza-confeti cf3"></span>
+            <span class="pieza-confeti cf4"></span>
+            <span class="pieza-confeti cf5"></span>
+            <span class="pieza-confeti cf6"></span>
+            <span class="pieza-confeti cf7"></span>
+            <span class="pieza-confeti cf8"></span>
+            <span class="pieza-confeti cf9"></span>
+            <span class="pieza-confeti cf10"></span>
+            <span class="pieza-confeti cf11"></span>
+            <span class="pieza-confeti cf12"></span>
+            <span class="pieza-confeti cf13"></span>
+            <span class="pieza-confeti cf14"></span>
+            <span class="pieza-confeti cf15"></span>
+            <span class="pieza-confeti cf16"></span>
+        </div>
+
+        <div class="notas-borde" aria-hidden="true">
+            <span class="nota-borde n1">♪</span>
+            <span class="nota-borde n2">♫</span>
+            <span class="nota-borde n3">♪</span>
+            <span class="nota-borde n4">♫</span>
+            <span class="nota-borde n5">♪</span>
+            <span class="nota-borde n6">♫</span>
+            <span class="nota-borde n7">♪</span>
+            <span class="nota-borde n8">♫</span>
+            <span class="nota-borde n9">♪</span>
+            <span class="nota-borde n10">♫</span>
+            <span class="nota-borde n11">♪</span>
+            <span class="nota-borde n12">♫</span>
+            <span class="nota-borde n13">♪</span>
+            <span class="nota-borde n14">♫</span>
+            <span class="nota-borde n15">♪</span>
+            <span class="nota-borde n16">♫</span>
+            <span class="nota-borde n17">♪</span>
+            <span class="nota-borde n18">♫</span>
+            <span class="nota-borde n19">♪</span>
+            <span class="nota-borde n20">♫</span>
+        </div>
+
         <svg class="flor-top" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M0,0 Q30,10 40,40 Q20,45 0,20 Z" stroke="#881B34" stroke-width="0.7"/>
             <path d="M0,15 C15,25 35,20 45,5" stroke="#881B34" stroke-width="0.5"/>
@@ -401,7 +679,16 @@
 
         <div>
             <p class="texto-info">CONFIRMAR ASISTENCIA HASTA EL 22 DE JUNIO</p>
-            <p class="texto-info" style="font-weight: 700;">3834-592977</p>
+            <p class="texto-info" style="font-weight: 700; margin-top: 8px;">
+                <a
+                    class="telefono-whatsapp"
+                    href="https://wa.me/5493834592977?text=Hola%2C%20Marti%20quiero%20preguntar%20sobre%20la%20fiesta..."
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    WhatsApp: 3834-592977
+                </a>
+            </p>
             <p class="dress-code">No usar color bordo/borravino/morado</p>
             <p class="ubicacion-texto">UBICACIÓN: Av. Recalde y Av. San Martin, CLUB BACCO</p>
         </div>
@@ -438,13 +725,22 @@
         </div>
 
         <div class="control-musica">
-            <button type="button" class="btn-musica" id="btnMusica">Pausar musica</button>
+            <button type="button" class="btn-musica reproduciendo" id="btnMusica">
+                <span class="notas-musicales" aria-hidden="true">
+                    <span class="nota nota-1">♪</span>
+                    <span class="nota nota-2">♫</span>
+                    <span class="nota nota-3">♪</span>
+                </span>
+                <span class="texto-btn-musica" id="textoBtnMusica">Pausar musica</span>
+            </button>
         </div>
     </div>
 
     <audio id="musicaFondo" autoplay loop preload="auto">
         <source src="musica-fondo.mp3" type="audio/mpeg">
     </audio>
+
+    <canvas id="confettiCanvas" class="confetti-canvas" aria-hidden="true"></canvas>
 
     <div class="modal-overlay" id="modalAlias" aria-hidden="true">
         <div class="modal-contenido" role="dialog" aria-modal="true" aria-labelledby="tituloAlias">
@@ -459,6 +755,16 @@
     <script>
         // Fecha límite exacta: 3 de Julio de 2026 a las 21:00 hs
         const fechaDestino = new Date('July 3, 2026 21:00:00').getTime();
+        const nodoDias = document.getElementById('dias');
+        const nodoHoras = document.getElementById('horas');
+        const nodoMinutos = document.getElementById('minutos');
+        const nodoSegundos = document.getElementById('segundos');
+        const estadoPrevioContador = {
+            dias: null,
+            horas: null,
+            minutos: null,
+            segundos: null
+        };
 
         const intervalo = setInterval(function() {
             const ahora = new Date().getTime();
@@ -471,10 +777,31 @@
             const s = Math.floor((diferencia % (1000 * 60)) / 1000);
 
             // Inyección de strings formateados con dos dígitos siempre
-            document.getElementById('dias').innerText = d < 10 ? '0' + d : d;
-            document.getElementById('horas').innerText = h < 10 ? '0' + h : h;
-            document.getElementById('minutos').innerText = m < 10 ? '0' + m : m;
-            document.getElementById('segundos').innerText = s < 10 ? '0' + s : s;
+            const nuevoDias = d < 10 ? '0' + d : String(d);
+            const nuevoHoras = h < 10 ? '0' + h : String(h);
+            const nuevoMinutos = m < 10 ? '0' + m : String(m);
+            const nuevoSegundos = s < 10 ? '0' + s : String(s);
+
+            const cambios = [
+                { clave: 'dias', nodo: nodoDias, valor: nuevoDias },
+                { clave: 'horas', nodo: nodoHoras, valor: nuevoHoras },
+                { clave: 'minutos', nodo: nodoMinutos, valor: nuevoMinutos },
+                { clave: 'segundos', nodo: nodoSegundos, valor: nuevoSegundos }
+            ];
+
+            cambios.forEach(function(item) {
+                const hayCambio = estadoPrevioContador[item.clave] !== item.valor;
+                if (!hayCambio) {
+                    return;
+                }
+
+                item.nodo.classList.add('numero-desvanecer');
+                setTimeout(function() {
+                    item.nodo.innerText = item.valor;
+                    item.nodo.classList.remove('numero-desvanecer');
+                }, 140);
+                estadoPrevioContador[item.clave] = item.valor;
+            });
 
             // Acciones al expirar el tiempo
             if (diferencia < 0) {
@@ -484,6 +811,7 @@
         }, 1000);
 
         const botonAbrirAlias = document.getElementById('abrirAlias');
+        const tarjetaPrincipal = document.querySelector('.tarjeta');
         const modalAlias = document.getElementById('modalAlias');
         const botonCerrarAlias = document.getElementById('cerrarAlias');
         const textoAlias = document.getElementById('textoAlias');
@@ -546,10 +874,15 @@
 
         const musicaFondo = document.getElementById('musicaFondo');
         const btnMusica = document.getElementById('btnMusica');
+        const textoBtnMusica = document.getElementById('textoBtnMusica');
         let autoplayBloqueado = false;
 
         function actualizarBotonMusica() {
-            btnMusica.innerText = musicaFondo.paused ? 'Activar musica' : 'Pausar musica';
+            const estaPausado = musicaFondo.paused;
+            textoBtnMusica.innerText = estaPausado ? 'Activar musica' : 'Pausar musica';
+            btnMusica.classList.toggle('reproduciendo', !estaPausado);
+            tarjetaPrincipal.classList.toggle('musica-activa', !estaPausado);
+            tarjetaPrincipal.classList.toggle('musica-pausada', estaPausado);
         }
 
         function intentarAutoplay() {
@@ -578,7 +911,10 @@
                 musicaFondo.play()
                     .then(actualizarBotonMusica)
                     .catch(() => {
-                        btnMusica.innerText = 'No se pudo reproducir';
+                        textoBtnMusica.innerText = 'No se pudo reproducir';
+                        btnMusica.classList.remove('reproduciendo');
+                        tarjetaPrincipal.classList.remove('musica-activa');
+                        tarjetaPrincipal.classList.add('musica-pausada');
                     });
             } else {
                 musicaFondo.pause();
@@ -587,13 +923,100 @@
         });
 
         musicaFondo.addEventListener('error', function() {
-            btnMusica.innerText = 'Falta musica-fondo.mp3';
+            textoBtnMusica.innerText = 'Falta musica-fondo.mp3';
+            btnMusica.classList.remove('reproduciendo');
+            tarjetaPrincipal.classList.remove('musica-activa');
+            tarjetaPrincipal.classList.add('musica-pausada');
         });
 
         document.addEventListener('click', desbloquearEnPrimeraInteraccion, { once: true });
         document.addEventListener('touchstart', desbloquearEnPrimeraInteraccion, { once: true, passive: true });
 
         intentarAutoplay();
+
+        const confettiCanvas = document.getElementById('confettiCanvas');
+        const confettiCtx = confettiCanvas.getContext('2d');
+        const confettiParticulas = [];
+        const confettiColores = ['#881B34', '#B33B57', '#E2A2B6', '#F5D9E3', '#FFFFFF'];
+        let confettiAnimando = false;
+
+        function ajustarCanvasConfetti() {
+            confettiCanvas.width = window.innerWidth;
+            confettiCanvas.height = window.innerHeight;
+        }
+
+        function crearParticulaConfetti(origenX, origenY) {
+            const angulo = Math.random() * Math.PI * 2;
+            const velocidad = 3 + Math.random() * 4;
+            return {
+                x: origenX,
+                y: origenY,
+                vx: Math.cos(angulo) * velocidad,
+                vy: Math.sin(angulo) * velocidad - 2,
+                gravedad: 0.12 + Math.random() * 0.05,
+                tam: 4 + Math.random() * 6,
+                rotacion: Math.random() * Math.PI,
+                giro: (Math.random() - 0.5) * 0.25,
+                alpha: 1,
+                color: confettiColores[Math.floor(Math.random() * confettiColores.length)]
+            };
+        }
+
+        function dispararConfettiDesdeElemento(elemento) {
+            const rect = elemento.getBoundingClientRect();
+            const origenX = rect.left + rect.width / 2;
+            const origenY = rect.top + rect.height / 2;
+
+            for (let i = 0; i < 90; i += 1) {
+                confettiParticulas.push(crearParticulaConfetti(origenX, origenY));
+            }
+
+            if (!confettiAnimando) {
+                animarConfetti();
+            }
+        }
+
+        function animarConfetti() {
+            confettiAnimando = true;
+            confettiCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+
+            for (let i = confettiParticulas.length - 1; i >= 0; i -= 1) {
+                const p = confettiParticulas[i];
+                p.vy += p.gravedad;
+                p.x += p.vx;
+                p.y += p.vy;
+                p.rotacion += p.giro;
+                p.alpha -= 0.012;
+
+                confettiCtx.save();
+                confettiCtx.globalAlpha = Math.max(p.alpha, 0);
+                confettiCtx.translate(p.x, p.y);
+                confettiCtx.rotate(p.rotacion);
+                confettiCtx.fillStyle = p.color;
+                confettiCtx.fillRect(-p.tam / 2, -p.tam / 2, p.tam, p.tam * 0.6);
+                confettiCtx.restore();
+
+                if (p.alpha <= 0 || p.y > confettiCanvas.height + 30) {
+                    confettiParticulas.splice(i, 1);
+                }
+            }
+
+            if (confettiParticulas.length > 0) {
+                requestAnimationFrame(animarConfetti);
+            } else {
+                confettiAnimando = false;
+                confettiCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+            }
+        }
+
+        ajustarCanvasConfetti();
+        window.addEventListener('resize', ajustarCanvasConfetti);
+
+        document.querySelectorAll('.btn, .btn-musica, .modal-cerrar').forEach(function(boton) {
+            boton.addEventListener('click', function() {
+                dispararConfettiDesdeElemento(boton);
+            });
+        });
     </script>
 </body>
 </html>

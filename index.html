@@ -260,6 +260,104 @@
         .icono-btn {
             font-size: 1.1rem;
         }
+
+        /* --- POP UP DE ALIAS --- */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.45);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.25s ease, visibility 0.25s ease;
+            z-index: 1000;
+        }
+
+        .modal-overlay.activo {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-contenido {
+            width: min(360px, 100%);
+            background: #fff;
+            border-radius: 14px;
+            padding: 18px 16px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.22);
+            text-align: center;
+        }
+
+        .modal-titulo {
+            margin: 0 0 10px 0;
+            color: #881B34;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+
+        .alias-copiable {
+            margin: 0;
+            border: 1px solid #c8b8bc;
+            border-radius: 10px;
+            padding: 12px 10px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: #541321;
+            background: #fff7f9;
+            cursor: pointer;
+            user-select: all;
+        }
+
+        .modal-ayuda {
+            margin: 10px 0 6px 0;
+            font-size: 0.82rem;
+            color: #444;
+        }
+
+        .modal-estado {
+            min-height: 18px;
+            margin: 0;
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: #881B34;
+        }
+
+        .modal-cerrar {
+            margin-top: 10px;
+            border: 1px solid #6B1024;
+            background: #6B1024;
+            color: #fff;
+            border-radius: 18px;
+            padding: 8px 16px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        /* --- CONTROL DE MUSICA --- */
+        .control-musica {
+            width: 95%;
+            margin: 0 auto 12px auto;
+            display: flex;
+            justify-content: center;
+        }
+
+        .btn-musica {
+            border: 1px solid #7A2E3D;
+            background: #fff;
+            color: #7A2E3D;
+            border-radius: 20px;
+            padding: 8px 14px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.7px;
+            cursor: pointer;
+            box-shadow: 0 3px 8px rgba(122, 46, 61, 0.2);
+        }
     </style>
 </head>
 <body>
@@ -334,9 +432,27 @@
             <a href="https://maps.app.goo.gl/vHyRXU9QcjQwEwY66" target="_blank" class="btn btn-maps">
                 <span class="icono-btn">📍</span> Ver Ubicación en Maps
             </a>
-            <a href="https://link.mercadopago.com.ar/martisv" target="_blank" class="btn btn-alias">
-                <span class="icono-btn">✉️</span> Información de Alias: martisv
-            </a>
+            <button type="button" id="abrirAlias" class="btn btn-alias">
+                <span class="icono-btn">✉️</span> Información de Alias
+            </button>
+        </div>
+
+        <div class="control-musica">
+            <button type="button" class="btn-musica" id="btnMusica">Pausar musica</button>
+        </div>
+    </div>
+
+    <audio id="musicaFondo" autoplay loop preload="auto">
+        <source src="musica-fondo.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="modal-overlay" id="modalAlias" aria-hidden="true">
+        <div class="modal-contenido" role="dialog" aria-modal="true" aria-labelledby="tituloAlias">
+            <h3 class="modal-titulo" id="tituloAlias">Alias para transferir</h3>
+            <p class="alias-copiable" id="textoAlias" title="Tocar para copiar">martisv</p>
+            <p class="modal-ayuda">Tocá el alias para copiarlo al portapapeles</p>
+            <p class="modal-estado" id="estadoAlias"></p>
+            <button type="button" class="modal-cerrar" id="cerrarAlias">Cerrar</button>
         </div>
     </div>
 
@@ -366,6 +482,118 @@
                 document.querySelector('.contador-panel').innerHTML = "<div class='contador-titulo' style='color:#881B34; font-weight:700; margin:5px 0;'>¡Llegó el Gran Día de Martina!</div>";
             }
         }, 1000);
+
+        const botonAbrirAlias = document.getElementById('abrirAlias');
+        const modalAlias = document.getElementById('modalAlias');
+        const botonCerrarAlias = document.getElementById('cerrarAlias');
+        const textoAlias = document.getElementById('textoAlias');
+        const estadoAlias = document.getElementById('estadoAlias');
+
+        function abrirModalAlias() {
+            estadoAlias.innerText = '';
+            modalAlias.classList.add('activo');
+            modalAlias.setAttribute('aria-hidden', 'false');
+        }
+
+        function cerrarModalAlias() {
+            modalAlias.classList.remove('activo');
+            modalAlias.setAttribute('aria-hidden', 'true');
+        }
+
+        function copiarAlias() {
+            const alias = textoAlias.innerText.trim();
+
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(alias)
+                    .then(() => {
+                        estadoAlias.innerText = 'Alias copiado';
+                    })
+                    .catch(() => {
+                        estadoAlias.innerText = 'No se pudo copiar automáticamente';
+                    });
+                return;
+            }
+
+            const temporal = document.createElement('textarea');
+            temporal.value = alias;
+            document.body.appendChild(temporal);
+            temporal.select();
+            try {
+                document.execCommand('copy');
+                estadoAlias.innerText = 'Alias copiado';
+            } catch (error) {
+                estadoAlias.innerText = 'No se pudo copiar automáticamente';
+            }
+            document.body.removeChild(temporal);
+        }
+
+        botonAbrirAlias.addEventListener('click', abrirModalAlias);
+        botonCerrarAlias.addEventListener('click', cerrarModalAlias);
+        textoAlias.addEventListener('click', copiarAlias);
+        textoAlias.addEventListener('touchstart', copiarAlias, { passive: true });
+
+        modalAlias.addEventListener('click', function(evento) {
+            if (evento.target === modalAlias) {
+                cerrarModalAlias();
+            }
+        });
+
+        document.addEventListener('keydown', function(evento) {
+            if (evento.key === 'Escape' && modalAlias.classList.contains('activo')) {
+                cerrarModalAlias();
+            }
+        });
+
+        const musicaFondo = document.getElementById('musicaFondo');
+        const btnMusica = document.getElementById('btnMusica');
+        let autoplayBloqueado = false;
+
+        function actualizarBotonMusica() {
+            btnMusica.innerText = musicaFondo.paused ? 'Activar musica' : 'Pausar musica';
+        }
+
+        function intentarAutoplay() {
+            musicaFondo.volume = 0.5;
+            musicaFondo.play()
+                .then(() => {
+                    autoplayBloqueado = false;
+                    actualizarBotonMusica();
+                })
+                .catch(() => {
+                    autoplayBloqueado = true;
+                    actualizarBotonMusica();
+                });
+        }
+
+        function desbloquearEnPrimeraInteraccion() {
+            if (!autoplayBloqueado) {
+                return;
+            }
+            intentarAutoplay();
+        }
+
+        btnMusica.addEventListener('click', function() {
+            if (musicaFondo.paused) {
+                musicaFondo.volume = 0.5;
+                musicaFondo.play()
+                    .then(actualizarBotonMusica)
+                    .catch(() => {
+                        btnMusica.innerText = 'No se pudo reproducir';
+                    });
+            } else {
+                musicaFondo.pause();
+                actualizarBotonMusica();
+            }
+        });
+
+        musicaFondo.addEventListener('error', function() {
+            btnMusica.innerText = 'Falta musica-fondo.mp3';
+        });
+
+        document.addEventListener('click', desbloquearEnPrimeraInteraccion, { once: true });
+        document.addEventListener('touchstart', desbloquearEnPrimeraInteraccion, { once: true, passive: true });
+
+        intentarAutoplay();
     </script>
 </body>
 </html>
